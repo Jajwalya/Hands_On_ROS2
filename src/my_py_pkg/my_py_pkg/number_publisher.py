@@ -12,7 +12,7 @@ class NumberPublisherNode(Node):
          self.get_logger().info("Number publisher has been started.")
          
     def publish_number(self):
-        msg = Int64
+        msg = Int64()
         msg.data= self.number_
         self.number_publisher_.publish(msg)
          
