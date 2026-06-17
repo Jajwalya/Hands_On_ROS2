@@ -9,7 +9,7 @@ int main(int argc, char **argv)
   auto node = std::make_shared<rclcpp::Node>("add_two_ints_clients_no_oop");
 
   auto client = node->create_client<example_interfaces::srv::AddTwoInts>("add_two_ints");
-  while(!client->wait_for_service(ls))
+  while(!client->wait_for_service(1s))
   {
     RCLCPP_WARN(node->get_logger(),"Waiting for the server...");
   }
@@ -19,7 +19,7 @@ int main(int argc, char **argv)
   request->b = 2;
 
   auto future = client->async_send_request(request);
-  rclcpp::spin_untill_future_complete(node, future);
+  rclcpp::spin_until_future_complete(node, future);
 
   auto response = future.get();
   RCLCPP_INFO(node->get_logger(), "%d + %d = %d",

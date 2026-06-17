@@ -10,11 +10,11 @@ public:
   {    
     server_ = this->create_service<example_interfaces::srv::AddTwoInts>(
         "add_two_ints",
-        std::bind(&AddTwoIntsServerNode::callbackAddTwoInts, this, _1, _2));
+        std::bind(&AddTwoIntServerNode::callbackAddTwoInts, this, _1, _2));
     RCLCPP_INFO(this->get_logger(),"Add Two Ints Service has been started.");    
   }
 
-private:
+private:    
   void callbackAddTwoInts(const example_interfaces::srv::AddTwoInts::Request::SharedPtr request,
                           const example_interfaces::srv::AddTwoInts::Response::SharedPtr response)
     {
@@ -22,6 +22,7 @@ private:
         RCLCPP_INFO(this->get_logger(), "%d + %d = %d",
                     (int)request->a, (int)request->b, (int)response->sum);
     }
+    rclcpp::Service<example_interfaces::srv::AddTwoInts>::SharedPtr server_;
 };
 
 int main(int argc, char **argv)
